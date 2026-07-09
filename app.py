@@ -3,16 +3,26 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
+import urllib.parse
 
 # Page configuration
 st.set_page_config(page_title="Dashboard Analisis PT Victory", layout="wide")
 
-# Load Data
 @st.cache_data
 def load_data():
-    file_path = 'data.xlsx'
-    df_pivot = pd.read_excel(file_path, sheet_name='Pivot Poin XAUUSD (2017-2025)')
-    df_nasabah = pd.read_excel(file_path, sheet_name='Data Nasabah (January-Juni 2026')
+SHEET_ID = "1i_6rgY7qA5Qovq2_RHFX369y4KvC4O7EcFagofBXgmM"
+
+# Encode nama sheet (WAJIB karena ada spasi & tanda kurung)
+sheet_pivot = urllib.parse.quote("Pivot Poin XAUUSD (2017-2025)")
+sheet_nasabah = urllib.parse.quote("Data Nasabah (January-Juni 2026)")
+
+# URL Google Sheets → CSV
+url_pivot = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={sheet_pivot}"
+url_nasabah = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={sheet_nasabah}"
+
+# Load ke DataFrame
+df_pivot = pd.read_csv(url_pivot)
+df_nasabah = pd.read_csv(url_nasabah)
     
     # Cleaning Pivot Data
     df_pivot = df_pivot.dropna(subset=['Tanggal'])
