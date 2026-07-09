@@ -10,19 +10,19 @@ st.set_page_config(page_title="Dashboard Analisis PT Victory", layout="wide")
 
 @st.cache_data
 def load_data():
-SHEET_ID = "1i_6rgY7qA5Qovq2_RHFX369y4KvC4O7EcFagofBXgmM"
+    SHEET_ID = "1i_6rgY7qA5Qovq2_RHFX369y4KvC4O7EcFagofBXgmM"
 
-# Encode nama sheet (WAJIB karena ada spasi & tanda kurung)
-sheet_pivot = urllib.parse.quote("Pivot Poin XAUUSD (2017-2025)")
-sheet_nasabah = urllib.parse.quote("Data Nasabah (January-Juni 2026)")
+    # Encode nama sheet (WAJIB karena ada spasi & tanda kurung)
+    sheet_pivot = urllib.parse.quote("Pivot Poin XAUUSD (2017-2025)")
+    sheet_nasabah = urllib.parse.quote("Data Nasabah (January-Juni 2026)")
 
-# URL Google Sheets → CSV
-url_pivot = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={sheet_pivot}"
-url_nasabah = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={sheet_nasabah}"
+    # URL Google Sheets → CSV
+    url_pivot = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={sheet_pivot}"
+    url_nasabah = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={sheet_nasabah}"
 
-# Load ke DataFrame
-df_pivot = pd.read_csv(url_pivot)
-df_nasabah = pd.read_csv(url_nasabah)
+    # Load ke DataFrame
+    df_pivot = pd.read_csv(url_pivot)
+    df_nasabah = pd.read_csv(url_nasabah)
     
     # Cleaning Pivot Data
     df_pivot = df_pivot.dropna(subset=['Tanggal'])
